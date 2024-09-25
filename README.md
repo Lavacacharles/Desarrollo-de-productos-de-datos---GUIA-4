@@ -86,5 +86,22 @@ Primero visualizaremos las distribuciones base para entender el comportamiento d
 
 Decidi utilizar un modelo Random Forest Regression para predecir el valor del monto final de financiación con el fin de generar valor mediante la obtención de un valor razonable basado en los datos, y principalmente aceptable para la Comisión Electoral Federal, esto puede ayudar a detectar montos atípicos aplicando un umbral respecto al valor predecido y se genera una necesidad ser investigados para garantizar la integridad de las elecciones.
 
+<img width="304" alt="image" src="https://github.com/user-attachments/assets/98f8eff6-c663-428f-86b9-3b5ecb158d89">
 
+El modelo se comporta correctamente, el error es mínimo y acorde a lo analizado en las visualizaciones, entre las columnas de mejor representación están `Total disbursements` y `Total individual contributions`, como también encontramos a `Ending cash`
 
+## Conclusiones
+
+* Concentración de financiación en la Cámara de Representantes: Las organizaciones de financiamiento se concentran principalmente en los candidatos a la Cámara de Representantes, lo que refleja la importancia de la representación estatal en el proceso electoral, seguida por los candidatos presidenciales y senadores.
+
+* Mayores montos para candidatos presidenciales: Los candidatos presidenciales, tanto incumbentes (candidatos que buscan la reelección) como challengers (retadores), reciben los montos más altos de financiación. Esto refleja el alto perfil de las elecciones presidenciales en comparación con otros cargos.
+
+* Variabilidad en la distribución del financiamiento: Existe una gran variabilidad en los montos recibidos por candidatos de diferentes estatus, con outliers que incluyen a candidatos presidenciales. Los incumbentes tienden a tener ventajas de financiación sobre challengers, pero también hay variabilidad importante dentro de estas categorías.
+
+* Presencia de valores negativos: La presencia de valores negativos en algunos registros de financiación puede deberse a errores de reporte, reembolsos, ajustes contables o la cancelación de préstamos, lo que sugiere la necesidad de mejorar la calidad de los datos y los procedimientos de reporte.
+
+* Importancia de las contribuciones individuales: Las contribuciones individuales tienen un peso significativo en los montos finales de financiamiento, especialmente para candidatos nuevos. Este hallazgo es clave para futuras predicciones y análisis de financiación.
+
+* Factores que influyen en el monto de financiación: Las variables más importantes que influyen en la financiación total son los gastos totales (Total disbursements) y las contribuciones individuales (Total individual contributions), lo que resalta el papel crucial de estos factores en la capacidad de los candidatos para financiar sus campañas.
+
+* Predicción de montos de financiamiento: El modelo de Random Forest Regression se utilizó para predecir el monto total de financiamiento, lo que puede ser útil para identificar montos anómalos y garantizar la transparencia y legalidad de los procesos de financiación electoral.
