@@ -54,12 +54,12 @@ Primero visualizaremos las distribuciones base para entender el comportamiento d
 
 ## Predicciones
 
-   * Preprocesamiento: Aplique LabelEncoding a 4 columnas7
+   * Preprocesamiento: Aplique LabelEncoding a 4 columnas:
 
 ```python
- ['Candidate state', 'Incumbent challenger status','Party affiliation']
+ ['Candidate state', 'Incumbent challenger status','Party affiliation','Candidate district']
 ```
-   * Y el resto de numéricas se escalaron apropiadamente para evitar el sobreajuste
+   * Y el resto de columnas numéricas se escalaron apropiadamente para evitar el sobreajuste
 
 ### Ejemplo de código en Python
 
