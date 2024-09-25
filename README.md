@@ -30,7 +30,9 @@ Primero visualizaremos las distribuciones base para entender el comportamiento d
      ¿Quisieramos entender en donde se enfocan más los montos de financiamiento entre retadores y candidatos que buscan la relección?.
      ![eccd4cb6-4d7f-4bf8-b6ea-c448d4b9c0cb](https://github.com/user-attachments/assets/bbe68cf7-097e-402a-8b60-203fa3555c14)
       Observamos mucha variabilidad en la distribución de los montos, pero nos permite visualizar los outlieres, los 3 valores más altos en las 3 categorías, son los contendientes por la presidencia, `Incumbent` corresponde al candidato re-elegido que vendría a ser Joe Biden que luego se retiro pero en el transcurso de su campaña ya ha invertido enormes cantidads y `Challenger`, el retador es Harris Kamala, la candidata recomendad por Joe Biden.
+     
      <img width="426" alt="image" src="https://github.com/user-attachments/assets/99ba51b3-1f1a-40da-bf99-8ed8c9447f7b">
+     
    Por otro lado también hay valores negativos, lo cual es extraño y presentaré posibles razones por las cuales existen estos valores, sin embargo conllevan un análisis más profundo para tener certeza de su causalidad.
       * Errores de reporte: Sucede que al reportar los datos al sistema pueden ocurrir problemas de agregación, en la carga de datos durante el procesamiento y agregando incorrectamente.
       * Reembolsos: En ciertos casos los candidatos suelen devolver contribuciones a individuos por razones legales o políticas, y no es actualizado correctamente lo que genera valores negativos.
@@ -42,10 +44,47 @@ Primero visualizaremos las distribuciones base para entender el comportamiento d
      Previamente visualizando la distribución de los comites por status de candidato, observamos ahora que los montos se concentran entre 10^4 y 10^7, y hay margen resaltante del monto mínimo recibido por los candidatos estatutuarios, que vienen ser los nuevos candidatos, también les corresponden los montos más altos, y por otro lado los candidatos que buscan ser re-electos no reciben montos elevados de financiamiento.
       
    *  Correlación de variables numéricas con el monto recibido
-      [e7756970-df37-4921-b3cc-c277133630bf](https://github.com/user-attachments/assets/cdc40359-2476-4d41-bf8a-18c631ae69a7)
-   * 
-     
+      ¿Que variables nos pueden ayudar a predecir el monto recibido por campaña?
+      ![e7756970-df37-4921-b3cc-c277133630bf](https://github.com/user-attachments/assets/cdc40359-2476-4d41-bf8a-18c631ae69a7)
+      Se resaltan dos columnas `Total disburesments` y `Total individual contributions` como los atributos con mayor representación en el monto de financiamiento y serán importantes para hacer predicciones.
+   * Contribuciones individuales vs Montos de financiamiento
+     ¿Como se distribuyen los tipos de candidatura entre las contribuciones indiduales y el monto de financiamiento?
+     ![dde1470a-f095-4822-890c-92ef73f15fa4](https://github.com/user-attachments/assets/4bdc689d-8e5f-478d-a514-1182393857c0)
+     Se observa una clara superioridad en los montos individuales además de los montos finales ya analizados previamente, para candidatos nuevos respecto a los re electos, por ende se encontraron claras pruebas de alta representación de los montos finales de financiamiento a partir de los montos individuales y la categoría de postulantes, con esto ya podremos realizar predicciones de forma más precisa y certera 
 
-
-   
 ## Predicciones
+
+   * Preprocesamiento: Aplique LabelEncoding a 4 columnas7
+
+```python
+ ['Candidate state', 'Incumbent challenger status','Party affiliation']
+```
+   * Y el resto de numéricas se escalaron apropiadamente para evitar el sobreajuste
+
+### Ejemplo de código en Python
+
+```python
+    relevant_columns = [
+    'Total disbursements',
+    'Total receipts',                    # Variable objetivo: Total de financiación
+    'Candidate state',                   # Estado del candidato
+    'Candidate district',                # Distrito del candidato
+    'Incumbent challenger status',       # Status del candidato (Incumbente o retador)
+    'Party affiliation',                 # Afiliación política del candidato
+    'Contributions from candidate',      # Contribuciones del propio candidato
+    'Loans from candidate',              # Préstamos del propio candidato
+    'Contributions from other political committees',  # Contribuciones de otros comités
+    'Contributions from party committees',  # Contribuciones del partido
+    'Beginning cash',                    # Dinero al inicio de la campaña
+    'Ending cash',                       # Dinero al final de la campaña
+    'Debts owed by',                     # Deudas de la campaña
+    'Refunds to committees',             # Reembolsos a comités
+    'Refunds to individuals',            # Reembolsos a individuos
+    'Total individual contributions',    # Contribuciones individuales
+]
+```
+
+Decidi utilizar un modelo Random Forest Regression para predecir el valor del monto final de financiación con el fin de generar valor mediante la obtención de un valor razonable basado en los datos, y principalmente aceptable para la Comisión Electoral Federal, esto puede ayudar a detectar montos atípicos aplicando un umbral respecto al valor predecido y se genera una necesidad ser investigados para garantizar la integridad de las elecciones.
+
+
+
